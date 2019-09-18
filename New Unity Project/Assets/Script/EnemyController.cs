@@ -43,7 +43,12 @@ public class EnemyController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col){
 		if (col.gameObject.tag != "Chao") {
 			direction = direction * -1;
-		}
+
+            //Parte importante do FLIP copiada do Script "PlayerController"
+            Vector3 aux = transform.localScale;
+            aux.x = aux.x * -1;
+            transform.localScale = aux;
+        }
 	}
 
 
