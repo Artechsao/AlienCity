@@ -7,8 +7,9 @@ public class EnemyController : MonoBehaviour {
 	public Vector2 direction = Vector2.left;
 	public float Speed = 7;
 	public float JumpForce;
+    private bool olhandoParaDireita;
 
-	private Rigidbody2D rigidBody;
+    private Rigidbody2D rigidBody;
 	private float timeJump;
 	private Animator anim;
 
@@ -16,7 +17,8 @@ public class EnemyController : MonoBehaviour {
 		rigidBody = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
 		timeJump = 0;
-	}
+        olhandoParaDireita = false;
+    }
 
 	/*
 	 * O inimigo irá de um lado a outro e pulará a cada 3 segundos.
@@ -43,8 +45,25 @@ public class EnemyController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col){
 		if (col.gameObject.tag != "Chao") {
 			direction = direction * -1;
+            Flip();
 		}
 	}
 
-
+    public void Flip()
+    {
+        Vector3 aux = transform.localScale;
+        aux.x = aux.x * -1;
+        transform.localScale = aux;
+        if (olhandoParaDireita)
+        {
+            olhandoParaDireita = false;
+        }
+        else
+        {
+            olhandoParaDireita = true;
+        }
+    }
 }
+
+
+
